@@ -1,0 +1,200 @@
+<!--this file is in applicaion code -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>ProjectName-oauth2-security</artifactId>
+	<packaging>jar</packaging>
+
+	<name>ProjectName-oauth2-security</name>
+	<description>oAuth 2 project for Spring Boot</description>
+
+
+	<parent>
+		<groupId>com.Projectname</groupId>
+		<artifactId>Projectname</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<start-class>com.OAuth2SecurityApplication</start-class>
+	</properties>
+
+	<dependencies>
+		
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-oauth2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+	
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+		</dependency>
+		
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- <dependency> <groupId>com.h2database</groupId> <artifactId>h2</artifactId> 
+			</dependency> -->
+			<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
+
+<dependency>
+	
+   <groupId>org.springframework.cloud</groupId>
+	
+   <artifactId>spring-cloud-dependencies</artifactId>
+	
+   <version>Brixton.RELEASE</version>
+	
+   <type>pom</type>
+	
+</dependency>
+
+	</dependencies>	
+
+	<repositories>
+	<repository>
+           <snapshots>
+               <enabled>false</enabled>
+           </snapshots>
+           <id>central</id>
+           <name>bintray</name>
+           <url>http://jcenter.bintray.com</url>
+        </repository>
+   </repositories>
+   <pluginRepositories>
+       <pluginRepository>
+          <snapshots>
+               <enabled>false</enabled>
+           </snapshots>
+           <id>central</id>
+           <name>bintray-plugins</name>
+           <url>http://jcenter.bintray.com</url>
+       </pluginRepository>
+</pluginRepositories>
+	
+	<build>
+		<plugins>
+			 <plugin>
+        			<groupId>org.springframework.boot</groupId>
+		        	<artifactId>spring-boot-maven-plugin</artifactId>
+		        	<version>${spring.boot.version}</version>
+        			<executions>
+                    			<execution>
+                        			<goals>
+                            				<goal>repackage</goal>
+                        			</goals>
+                    			</execution>
+                		</executions>
+      			</plugin>
+				<plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>com.ProjectName.App</mainClass>
+          <arguments>
+            <argument>argument1</argument>
+          </arguments>
+        </configuration>
+      </plugin>
+                	<plugin>
+		<groupId>org.jfrog.buildinfo</groupId>
+                <artifactId>artifactory-maven-plugin</artifactId>
+                <version>2.6.1</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>build-info</id>
+                        <goals>
+                            <goal>publish</goal>
+                        </goals>
+                        <configuration>
+                            <deployProperties>
+                                <gradle>awesome</gradle>
+                            </deployProperties>
+                            <artifactory>
+                                <includeEnvVars>true</includeEnvVars>
+                                <envVarsExcludePatterns>*password*,*secret*,*key*,*token*,*passphrase*</envVarsExcludePatterns>
+                                <timeoutSec>60</timeoutSec>
+                            </artifactory>
+                            <publisher>
+                                <contextUrl>http://ArtifactserverIP:Port/artifactory</contextUrl>
+                                <username>${username}</username>
+                                <password>${password}</password>
+                                <excludePatterns>*-tests.jar</excludePatterns>
+                                <repoKey>libs-release</repoKey>
+                                <snapshotRepoKey>libs-snapshot</snapshotRepoKey>
+                            </publisher>
+                            <buildInfo>
+                                <buildName>ProjectName-oauth</buildName>
+                                <buildNumber>Artifact_version</buildNumber>
+                                <buildUrl>http://build-url.org</buildUrl>
+                            </buildInfo>
+                            <licenses>
+                                <autoDiscover>true</autoDiscover>
+                                <includePublishedArtifacts>false</includePublishedArtifacts>
+                                <runChecks>true</runChecks>
+                                <scopes>compile,runtime</scopes>
+                                <violationRecipients>build@organisation.com</violationRecipients>
+                            </licenses>
+                        </configuration>
+                    </execution>
+</executions>
+
+</plugin>
+	
+ <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>
+                </configuration>
+            </plugin>
+
+		</plugins>
+	</build>
+
+</project>
